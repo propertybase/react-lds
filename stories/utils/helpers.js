@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { select } from '@storybook/addon-knobs';
 import { THEMES } from '../../src/utils';
+import { AssetPathProvider } from '../../src/components/AssetPathProvider';
 
 const UTILITY_ICONS = [
   '', 'ad_set', 'add', 'adduser', 'anchor', 'announcement', 'answer', 'apex', 'approval',
@@ -90,34 +90,8 @@ export function getDropdownHeights() {
   return [5, 7, 10];
 }
 
-export class Context extends Component {
-  getChildContext() {
-    return {
-      assetBasePath: 'assets/',
-    };
-  }
-
-  render() {
-    const { children } = this.props;
-
-    return (
-      <div>
-        {children}
-      </div>
-    );
-  }
-}
-
-Context.childContextTypes = {
-  assetBasePath: PropTypes.string.isRequired,
-};
-
-Context.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
 export function withContext(story) {
-  return <Context>{story()}</Context>;
+  return <AssetPathProvider path="assets/">{story()}</AssetPathProvider>;
 }
 
 export function withSpacing(story) {
